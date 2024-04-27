@@ -37,17 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'corsheaders',
     'rest_framework',
     'restorantapp.apps.RestorantappConfig',
     
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -71,11 +72,16 @@ TEMPLATES = [
     },
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    # Add other allowed origins if needed
+]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+
 WSGI_APPLICATION = 'backend.wsgi.application'
+CORS_ALLOW_ALL_ORIGINS = True  # Allow requests from all origins (not recommended for production)
+CORS_ALLOW_CREDENTIALS = True  # Allow credentials (such as cookies) to be included in requests
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
